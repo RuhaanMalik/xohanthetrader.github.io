@@ -1,6 +1,21 @@
+<button onclick= "sayHello(this)">Hi</button>
+<br>
 I am Xohan The Trader <br>
 The aliens are coming <br>
 I am delivering the warning <br>
 Be prepared <br>
 Be ready <br>
 <img src="Screenshot_20171018-093500.webp">
+
+<script>
+let state = 1
+function sayHello(button) {
+    if(state ==1){
+        button.innerHTML = "hello"
+        state = 0
+    } else if(state == 0) {
+        button.innerHTML = "hi"
+        state = 1
+    }
+}
+</script>
