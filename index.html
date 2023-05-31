@@ -1,11 +1,7 @@
 <button onclick= "sayHello(this)", style="color: green; background-color:navy" >Hi</button>
 <br>
-I am Xohan The Trader <br>
-The aliens are coming <br>
-I am delivering the warning <br>
-Be prepared <br>
-Be ready <br>
-<img src="Screenshot_20171018-093500.webp">
+
+<img id= d2pic >
 
 <script>
 let state = 1
@@ -18,4 +14,20 @@ function sayHello(button) {
         state = 1
     }
 }
+
+var apiKey = "042d249b50ff4cdea026207fd19518a6"
+var xhr = new XMLHttpRequest()
+xhr.open("GET","https://www.bungie.net/platform/Destiny/Manifest/InventoryItem/1274330687/",true)
+xhr.setRequestHeader("X-API-Key",apiKey)
+let picLink = ""
+xhr.onreadystatechange = function(){
+    if(this.readyState === 4 && this.status === 200){
+        var json = JSON.parse(this.responseText);
+        picLink = json.Response.data.inventoryItem.icon; //Gjallarhorn
+        console.log(`https://www.bungie.net${picLink}`)
+        document.getElementById("d2pic").src = `https://www.bungie.net${picLink}`
+    } 
+}
+
+xhr.send()
 </script>
