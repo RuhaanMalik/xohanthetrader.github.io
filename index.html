@@ -1,6 +1,8 @@
 <button onclick= "sayHello(this)", style="color: green; background-color:navy" >Hi</button>
 <br>
-
+<input type="number" id = field>
+<br>
+<button onclick = "Submit()">Submit</button>
 <img id= d2pic >
 
 <script>
@@ -16,18 +18,21 @@ function sayHello(button) {
 }
 
 var apiKey = "042d249b50ff4cdea026207fd19518a6"
-var xhr = new XMLHttpRequest()
-xhr.open("GET","https://www.bungie.net/platform/Destiny/Manifest/InventoryItem/1274330687/",true)
-xhr.setRequestHeader("X-API-Key",apiKey)
-let picLink = ""
-xhr.onreadystatechange = function(){
-    if(this.readyState === 4 && this.status === 200){
-        var json = JSON.parse(this.responseText);
-        picLink = json.Response.data.inventoryItem.icon; //Gjallarhorn
-        console.log(`https://www.bungie.net${picLink}`)
-        document.getElementById("d2pic").src = `https://www.bungie.net${picLink}`
-    } 
-}
 
-xhr.send()
+
+function Submit(){
+    let picLink = ""
+    var xhr = new XMLHttpRequest
+    xhr.open("GET",`https://www.bungie.net/platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${document.getElementById("field").value}/`)
+    xhr.setRequestHeader("X-API-Key",apiKey)
+    xhr.onreadystatechange = function(){
+        if(this.readyState === 4 && this.status === 200){
+            let json = JSON.parse(this.responseText)
+            console.log(json.Response.displayProperties.name)
+            picLink = json.Response.displayProperties.icon
+            document.getElementById("d2pic").src = `https://www.bungie.net${picLink}`
+        }
+    }
+    xhr.send()
+}
 </script>
